@@ -1,0 +1,22 @@
+{
+  "name": "rtae-monorepo",
+  "version": "0.1.0",
+  "description": "Remote Task Autonomy Engine - Monorepo",
+  "private": true,
+  "scripts": {
+    "install:all": "cd backend/functions && npm install && cd ../../agent && npm install",
+    "build:functions": "cd backend/functions && npm run build",
+    "build:agent": "cd agent && npm run build",
+    "build:flutter": "cd mobile && flutter pub get && flutter build web --release",
+    "build:all": "npm run build:functions && npm run build:agent && npm run build:flutter",
+    "deploy:functions": "cd backend && firebase deploy --only functions",
+    "deploy:rules": "cd backend && firebase deploy --only firestore:rules,storage:rules",
+    "deploy:hosting": "cd backend && firebase deploy --only hosting",
+    "deploy:all": "cd backend && firebase deploy",
+    "start:agent": "cd agent && npm start",
+    "dev:agent": "cd agent && npm run dev"
+  },
+  "keywords": ["automation", "rtae", "browser", "playwright"],
+  "author": "",
+  "license": "MIT"
+}

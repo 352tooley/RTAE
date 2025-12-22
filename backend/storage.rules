@@ -1,0 +1,19 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // Artifacts path: artifacts/{ownerUserId}/{taskId}/{runId}/*
+    match /artifacts/{userId}/{taskId}/{runId}/{allPaths=**} {
+      // Users can read their own artifacts
+      allow read: if request.auth != null && request.auth.uid == userId;
+
+      // Only Cloud Functions and agents (via signed URLs) can write
+      allow write: if false;
+    }
+
+    // Default: deny all
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

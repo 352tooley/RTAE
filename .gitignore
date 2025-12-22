@@ -1,0 +1,45 @@
+# Node
+node_modules/
+npm-debug.log
+*.log
+
+# TypeScript
+dist/
+lib/
+*.js.map
+
+# Flutter
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Firebase
+.firebase/
+firebase-debug.log
+firebase-debug.*.log
+
+# Agent Config (contains secrets)
+agent/agent-config.json
+agent/browser-profile/
+
+# Environment
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+*.swp
+*.swo
+*~

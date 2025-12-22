@@ -1,0 +1,37 @@
+name: rtae_controller
+description: RTAE Flutter Web Controller
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Firebase
+  firebase_core: ^2.24.2
+  firebase_auth: ^4.15.3
+  cloud_firestore: ^4.13.6
+  cloud_functions: ^4.5.12
+  firebase_storage: ^11.5.6
+
+  # UI
+  flutter_svg: ^2.0.9
+
+  # State Management
+  provider: ^6.1.1
+
+  # Utilities
+  intl: ^0.18.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/

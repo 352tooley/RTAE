@@ -1,0 +1,58 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Devices collection
+    match /devices/{deviceId} {
+      allow read: if isAuthenticated() && resource.data.ownerUserId == request.auth.uid;
+      allow write: if false; // Only Cloud Functions can write devices
+    }
+
+    // Tasks collection
+    match /tasks/{taskId} {
+      allow read: if isAuthenticated() && resource.data.ownerUserId == request.auth.uid;
+      allow create: if isAuthenticated() && request.resource.data.ownerUserId == request.auth.uid;
+      allow update: if isAuthenticated() && resource.data.ownerUserId == request.auth.uid;
+      allow delete: if isAuthenticated() && resource.data.ownerUserId == request.auth.uid;
+    }
+
+    // Schedules collection
+    match /schedules/{scheduleId} {
+      allow read: if isAuthenticated() && resource.data.ownerUserId == request.auth.uid;
+      allow create: if isAuthenticated() && request.resource.data.ownerUserId == request.auth.uid;
+      allow update: if isAuthenticated() && resource.data.ownerUserId == request.auth.uid;
+      allow delete: if isAuthenticated() && resource.data.ownerUserId == request.auth.uid;
+    }
+
+    // Runs collection
+    match /runs/{runId} {
+      allow read: if isAuthenticated() && resource.data.ownerUserId == request.auth.uid;
+      allow write: if false; // Only Cloud Functions can write runs
+    }
+
+    // Job queue (Cloud Functions only)
+    match /jobQueue/{jobId} {
+      allow read, write: if false; // Only Cloud Functions
+    }
+
+    // Pairing codes (temporary, Cloud Functions managed)
+    match /pairingCodes/{code} {
+      allow read, write: if false; // Only Cloud Functions
+    }
+
+    // Notifications (fallback logs)
+    match /notifications/{notificationId} {
+      allow read: if isAuthenticated() && resource.data.ownerUserId == request.auth.uid;
+      allow write: if false; // Only Cloud Functions can write notifications
+    }
+  }
+}
