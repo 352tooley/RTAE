@@ -15,11 +15,11 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'YOUR_API_KEY',
-    appId: 'YOUR_APP_ID',
-    messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
-    projectId: 'your-firebase-project-id',
-    authDomain: 'your-firebase-project-id.firebaseapp.com',
-    storageBucket: 'your-firebase-project-id.appspot.com',
+    apiKey: 'AIzaSyDlguBd5PseUeM36BC0nWnC3J5WEZgB2rM',
+    appId: '1:968487337580:web:4b722b9e5d75255cb3a249',
+    messagingSenderId: '968487337580',
+    projectId: 'rtae-6211e',
+    authDomain: 'rtae-6211e.firebaseapp.com',
+    storageBucket: 'rtae-6211e.firebasestorage.app',
   );
 }
