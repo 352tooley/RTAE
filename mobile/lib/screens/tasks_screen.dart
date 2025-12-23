@@ -157,19 +157,30 @@ class TasksScreen extends StatelessWidget {
             onPressed: () async {
               if (titleController.text.isEmpty) return;
 
-              await FirebaseFirestore.instance.collection('tasks').add({
-                'ownerUserId': userId,
-                'title': titleController.text,
-                'instructionsPlaintext': instructionsController.text,
-                'status': 'DRAFT',
-                'consecutiveSuccessCount': 0,
-                'consecutiveFailureCount': 0,
-                'createdAt': DateTime.now().millisecondsSinceEpoch,
-                'updatedAt': DateTime.now().millisecondsSinceEpoch,
-              });
+              try {
+                await FirebaseFirestore.instance.collection('tasks').add({
+                  'ownerUserId': userId,
+                  'title': titleController.text,
+                  'instructionsPlaintext': instructionsController.text,
+                  'status': 'DRAFT',
+                  'consecutiveSuccessCount': 0,
+                  'consecutiveFailureCount': 0,
+                  'createdAt': DateTime.now().millisecondsSinceEpoch,
+                  'updatedAt': DateTime.now().millisecondsSinceEpoch,
+                });
 
-              if (context.mounted) {
-                Navigator.pop(context);
+                if (context.mounted) {
+                  Navigator.pop(context);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Task created successfully')),
+                  );
+                }
+              } catch (e) {
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Error creating task: $e')),
+                  );
+                }
               }
             },
             child: const Text('Create'),
