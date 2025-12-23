@@ -4,7 +4,7 @@ import * as admin from 'firebase-admin';
 admin.initializeApp();
 
 const db = admin.firestore();
-const storage = admin.storage();
+// const storage = admin.storage(); // Unused for now
 
 // Import shared types (copy locally or use path alias)
 import {
@@ -134,6 +134,10 @@ export const claimPairingCode = functions.https.onCall(
 
     if (pairing?.expiresAt < Date.now()) {
       throw new functions.https.HttpsError('deadline-exceeded', 'Pairing code expired');
+    }
+
+    if (!pairing) {
+      throw new functions.https.HttpsError('internal', 'Invalid pairing data');
     }
 
     // Create device
@@ -447,8 +451,8 @@ export const completeJob = functions.https.onCall(
           runId,
           job.taskId
         );
-      } else if (runResult.status !== RunStatus.SUCCESS) {
-        // Send failure notification
+      } else {
+        // Send failure notification (first failure, not yet quarantined)
         const userDoc = await admin.auth().getUser(job.ownerUserId);
         const userEmail = userDoc.email || 'user@example.com';
 
