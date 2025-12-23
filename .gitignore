@@ -26,6 +26,7 @@ build/
 .firebase/
 firebase-debug.log
 firebase-debug.*.log
+backend/public/
 
 # Agent Config (contains secrets)
 agent/agent-config.json
